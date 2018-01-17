@@ -23,6 +23,7 @@
         - Nginx_status_templates.conf
         - redis_userparemeter.conf
         - userparameter_mysql.conf
+        - .my.cnf
   - name: copy Monitor related shell script
     template: src={{ item }} dest={{ app_path }}/etc/zabbix_agentd.conf.d/{{ item }} mode=0755
     with_items:
