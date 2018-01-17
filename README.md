@@ -7,7 +7,7 @@
 
 ```bash
 git clone https://github.com/chuxuan909/ansible_zabbix-agent.git
-cd roles
+cd ansible_zabbix-agent
 ansible-playbook install_zabbix-agent.yml
 ```
 
