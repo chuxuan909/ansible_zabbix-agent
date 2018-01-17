@@ -6,7 +6,7 @@
 - 使用以下代码执行zabbix_anget自动部署
 
 ```bash
-git https://github.com/chuxuan909/ansible_zabbix-agent.git
+git clone https://github.com/chuxuan909/ansible_zabbix-agent.git
 cd roles
 ansible-playbook install_zabbix-agent.yml
 ```
