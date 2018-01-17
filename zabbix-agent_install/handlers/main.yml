@@ -1,0 +1,4 @@
+---
+  - name: start h-zabbix_agent
+    service: name=zabbix_agentd state=restarted enabled=yes
+    listen: "start zabbix_agent"

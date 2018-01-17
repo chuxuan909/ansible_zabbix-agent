@@ -1,0 +1,7 @@
+---
+  - name: copy Zabbix software to server
+    copy: src=zabbix-3.0.5.tar.gz dest={{ install_path }}/zabbix-3.0.5.tar.gz owner=root group=root
+  - name: untar zabbix to path
+    unarchive: src={{ install_path }}/zabbix-3.0.5.tar.gz dest={{ install_path }} copy=no 
+  - name: copy Zabbinx_agent start script
+    template: src=zabbix_agentd dest=/etc/init.d/ owner=root group=root mode=0755

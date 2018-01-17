@@ -1,0 +1,4 @@
+---
+  - include: create_dir.yml
+  - include: copy_untar.yml
+  - include: install.yml

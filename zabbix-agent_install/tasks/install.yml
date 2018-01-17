@@ -1,0 +1,37 @@
+---
+  - name: Install must pakcages
+    yum: name={{ item }}
+    with_items:
+        - curl 
+        - curl-devel 
+        - net-snmp 
+        - net-snmp-devel 
+        - perl-DBI
+  - name: Add run user
+    shell: "[ $(cat /etc/passwd|grep zabbix|wc -l) -eq 0 ] && useradd -M -u8005 -s /sbin/nologin  zabbix || echo user was added !! "
+  - name: config zabbix_agent
+    raw: "cd {{ config_path }} && ./configure --prefix={{ app_path }}  --enable-agent"
+  - name: install zabbix_agent
+    raw: "cd {{ config_path }} && make install"
+  - name: try delete zabbix_agent install pack and file and dir
+    file: dest={{ install_path }} state=absent
+  - name: copy Monitor related documents
+    template: src={{ item }} dest={{ app_path }}/etc/zabbix_agentd.conf.d/{{ item }}
+    with_items:
+        - Apache_status_templates.conf
+        - Linux_base_templates.conf
+        - Nginx_status_templates.conf
+        - redis_userparemeter.conf
+        - userparameter_mysql.conf
+  - name: copy Monitor related shell script
+    template: src={{ item }} dest={{ app_path }}/etc/zabbix_agentd.conf.d/{{ item }} mode=0755
+    with_items:
+        - apache_status.sh
+        - nginx_status.sh
+        - prc_info.sh
+        - redis.sh
+  - name: copy zabbix_agent config
+    template: src=zabbix_agentd.conf dest={{ app_path }}/etc/ owner=root group=root 
+  - name: Modfied zabbix_agent config file
+    script: 'modfied.sh'
+    notify: "start zabbix_agent"

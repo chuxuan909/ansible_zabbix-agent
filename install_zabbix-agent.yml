@@ -1,0 +1,7 @@
+---
+  - name: install zabbinx_agent
+    hosts: test_server
+    remote_user: root
+    gather_facts: Ture
+    roles:
+      - zabbix-agent_install
