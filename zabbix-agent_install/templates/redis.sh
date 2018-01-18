@@ -1,6 +1,8 @@
 #!/bin/bash
+USE_IFCONFIG=eth0
+HOST_IP=$(ifconfig $USE_IFCONFIG | grep "inet addr" | awk '{ print $2}' | awk -F: '{print $2}')
 REDISPATH="/usr/local/bin/redis-cli"
-HOST="127.0.0.1"
+HOST=$HOST_IP
 PORT="6468"
 REDIS_PA="$REDISPATH -h $HOST -p $PORT info"
 if [[ $# == 1 ]];then
