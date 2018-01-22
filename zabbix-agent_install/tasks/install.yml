@@ -1,12 +1,6 @@
 ---
   - name: Install must pakcages
-    yum: name={{ item }}
-    with_items:
-        - curl 
-        - curl-devel 
-        - net-snmp 
-        - net-snmp-devel 
-        - perl-DBI
+    shell: "yum -y install curl curl-devel net-snmp net-snmp-devel perl-DBI"
   - name: Add run user
     shell: "[ $(cat /etc/passwd|grep zabbix|wc -l) -eq 0 ] && useradd -M -u8005 -s /sbin/nologin  zabbix || echo user was added !! "
   - name: config zabbix_agent
